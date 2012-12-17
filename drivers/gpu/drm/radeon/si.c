@@ -2007,7 +2007,7 @@ static int si_cp_resume(struct radeon_device *rdev)
 	ring->wptr = 0;
 	WREG32(CP_RB0_WPTR, ring->wptr);
 
-	/* set the wb address wether it's enabled or not */
+	/* set the wb address whether it's enabled or not */
 	WREG32(CP_RB0_RPTR_ADDR, (rdev->wb.gpu_addr + RADEON_WB_CP_RPTR_OFFSET) & 0xFFFFFFFC);
 	WREG32(CP_RB0_RPTR_ADDR_HI, upper_32_bits(rdev->wb.gpu_addr + RADEON_WB_CP_RPTR_OFFSET) & 0xFF);
 
@@ -2040,7 +2040,7 @@ static int si_cp_resume(struct radeon_device *rdev)
 	ring->wptr = 0;
 	WREG32(CP_RB1_WPTR, ring->wptr);
 
-	/* set the wb address wether it's enabled or not */
+	/* set the wb address whether it's enabled or not */
 	WREG32(CP_RB1_RPTR_ADDR, (rdev->wb.gpu_addr + RADEON_WB_CP1_RPTR_OFFSET) & 0xFFFFFFFC);
 	WREG32(CP_RB1_RPTR_ADDR_HI, upper_32_bits(rdev->wb.gpu_addr + RADEON_WB_CP1_RPTR_OFFSET) & 0xFF);
 
@@ -2066,7 +2066,7 @@ static int si_cp_resume(struct radeon_device *rdev)
 	ring->wptr = 0;
 	WREG32(CP_RB2_WPTR, ring->wptr);
 
-	/* set the wb address wether it's enabled or not */
+	/* set the wb address whether it's enabled or not */
 	WREG32(CP_RB2_RPTR_ADDR, (rdev->wb.gpu_addr + RADEON_WB_CP2_RPTR_OFFSET) & 0xFFFFFFFC);
 	WREG32(CP_RB2_RPTR_ADDR_HI, upper_32_bits(rdev->wb.gpu_addr + RADEON_WB_CP2_RPTR_OFFSET) & 0xFF);
 
@@ -2474,6 +2474,7 @@ static bool si_vm_reg_valid(u32 reg)
 	/* check config regs */
 	switch (reg) {
 	case GRBM_GFX_INDEX:
+	case CP_STRMOUT_CNTL:
 	case VGT_VTX_VECT_EJECT_REG:
 	case VGT_CACHE_INVALIDATION:
 	case VGT_ESGS_RING_SIZE:

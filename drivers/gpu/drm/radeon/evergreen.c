@@ -1330,6 +1330,8 @@ void evergreen_mc_stop(struct radeon_device *rdev, struct evergreen_mc_save *sav
 					break;
 				udelay(1);
 			}
+		} else {
+			save->crtc_enabled[i] = false;
 		}
 	}
 
@@ -1372,7 +1374,7 @@ void evergreen_mc_resume(struct radeon_device *rdev, struct evergreen_mc_save *s
 	WREG32(BIF_FB_EN, FB_READ_EN | FB_WRITE_EN);
 
 	for (i = 0; i < rdev->num_crtc; i++) {
-		if (save->crtc_enabled) {
+		if (save->crtc_enabled[i]) {
 			if (ASIC_IS_DCE6(rdev)) {
 				tmp = RREG32(EVERGREEN_CRTC_BLANK_CONTROL + crtc_offsets[i]);
 				tmp |= EVERGREEN_CRTC_BLANK_DATA_EN;
@@ -1648,7 +1650,7 @@ static int evergreen_cp_resume(struct radeon_device *rdev)
 	ring->wptr = 0;
 	WREG32(CP_RB_WPTR, ring->wptr);
 
-	/* set the wb address wether it's enabled or not */
+	/* set the wb address whether it's enabled or not */
 	WREG32(CP_RB_RPTR_ADDR,
 	       ((rdev->wb.gpu_addr + RADEON_WB_CP_RPTR_OFFSET) & 0xFFFFFFFC));
 	WREG32(CP_RB_RPTR_ADDR_HI, upper_32_bits(rdev->wb.gpu_addr + RADEON_WB_CP_RPTR_OFFSET) & 0xFF);
